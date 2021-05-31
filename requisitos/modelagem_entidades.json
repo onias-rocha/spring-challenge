@@ -1,0 +1,40 @@
+{
+  "seller": {
+    "id": 18,
+    "followers": [5, 68, 12],
+    "publications": [2]
+  },
+
+  "customer": {
+    "id": 5,
+    "follows": [18, 88]
+  },
+
+  "publication": {
+    "id": 2,
+    "dateOfPublication": "31/05/2021"
+  }
+}
+
+
+public class Seller{
+  public int id;
+  public List<int> followers;
+  public List<int> publications;
+}
+
+public class Customer{
+  public int id;
+  public List<int> follows;
+}
+
+public class Publication{
+  public int id;
+  public String dateOfPublication;
+}
+
+public class Root{
+  public Seller seller;
+  public Customer customer;
+  public Publication publication;
+}
