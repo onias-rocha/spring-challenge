@@ -1,5 +1,6 @@
 package meli.bootcamp.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import meli.bootcamp.entity.Customer;
 import meli.bootcamp.entity.Seller;
 import meli.bootcamp.service.CustomerService;
@@ -7,6 +8,7 @@ import meli.bootcamp.service.SellerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,6 +47,23 @@ public class ChallengeController {
         dto.setUserId(userId);
         dto.setUserName(s1.getNome());
         return dto;
+    }
+
+    @GetMapping("/users/{userId}/followers/list")
+    public List<CustomerDTO> listAllFollowers(@PathVariable Integer userId){
+
+        List<CustomerDTO> customers = new ArrayList<>();
+
+        Seller s1 = s_service.getSellerById(userId);
+
+
+        for(Customer c1 : s1.getFollowers()){
+            CustomerDTO dto = new CustomerDTO();
+            dto.setId(c1.getId());
+            dto.setNome(c1.getNome());
+            customers.add(dto);
+        }
+        return customers;
     }
 
 
