@@ -27,7 +27,7 @@ public class SellerControllerImpl implements SellerController {
     }
 
     @Override
-    @GetMapping("/api/seller")
+    @GetMapping("/api/sellers")
     public List<Seller> getAllSellers() {
         return service.getAllSellers();
     }

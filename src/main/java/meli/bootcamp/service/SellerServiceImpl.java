@@ -23,7 +23,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Seller getSellerById(Integer id) {
-        return null;
+        return repository.findById(id).get();
     }
 
     @Override

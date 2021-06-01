@@ -1,5 +1,6 @@
 package meli.bootcamp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,5 +19,6 @@ public class Customer {
             joinColumns = @JoinColumn(name="customer_id"),
             inverseJoinColumns = @JoinColumn(name="seller_id")
     )
+    @JsonIgnoreProperties("followers")
     private List<Seller> follows;
 }
