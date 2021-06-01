@@ -11,6 +11,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String nome;
     @ManyToMany
     @JoinTable(
             name="seller_customer",

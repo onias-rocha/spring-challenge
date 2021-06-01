@@ -1,11 +1,9 @@
 package meli.bootcamp.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -14,5 +12,7 @@ public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @CreatedDate
+    @Column(name = "date_of_publication")
     private LocalDate dateOfPublication;
 }
