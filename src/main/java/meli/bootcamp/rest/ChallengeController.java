@@ -37,5 +37,15 @@ public class ChallengeController {
         return HttpStatus.OK;
     }
 
+    @GetMapping("/users/{userId}/followers/count/")
+    public FollowersCountDTO getAmmountOfFollowers(@PathVariable Integer userId){
+        FollowersCountDTO dto = new FollowersCountDTO();
+        Seller s1 = s_service.getSellerById(userId);
+        dto.setFollowersCount(s1.getFollowers().size());
+        dto.setUserId(userId);
+        dto.setUserName(s1.getNome());
+        return dto;
+    }
+
 
 }
