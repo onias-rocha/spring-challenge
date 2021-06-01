@@ -1,6 +1,5 @@
 package meli.bootcamp.rest;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import meli.bootcamp.entity.Customer;
 import meli.bootcamp.entity.Seller;
 import meli.bootcamp.service.CustomerService;
@@ -64,6 +63,19 @@ public class ChallengeController {
             customers.add(dto);
         }
         return customers;
+    }
+
+    @GetMapping("/users/{userId}/followed/list")
+    public List<SellerDTO> listAllSellers(@PathVariable Integer userId){
+        List<SellerDTO> sellers = new ArrayList<>();
+        Customer customer = c_service.getCustomerById(userId);
+        for(Seller seller : customer.getFollows()){
+            SellerDTO dto = new SellerDTO();
+            dto.setId(seller.getId());
+            dto.setNome(seller.getNome());
+            sellers.add(dto);
+        }
+        return sellers;
     }
 
 
