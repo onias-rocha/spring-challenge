@@ -3,31 +3,31 @@ package meli.bootcamp.rest;
 import meli.bootcamp.entity.Publication;
 import meli.bootcamp.rest.dto.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 public interface ChallengeController {
     //US 0001
-    public HttpStatus followUserById (@PathVariable Integer idUser, @PathVariable Integer idToFollow);
+    public HttpStatus followUserById (Integer idUser, Integer idToFollow);
 
     //US 0002
-    public FollowersCountDTO getAmmountOfFollowers(@PathVariable Integer userId);
+    public FollowersCountDTO getAmmountOfFollowers(Integer userId);
 
     //US 0003
-    public List<CustomerDTO> listAllFollowers(@PathVariable Integer userId);
+    public List<CustomerDTO> listAllFollowers(Integer userId, String order);
 
     //US 0004
-    public List<SellerDTO> listAllSellers(@PathVariable Integer userId);
+    public List<SellerDTO> listAllSellers(Integer userId, String order);
 
     //US 0005
-    public HttpStatus createNewPublication(@RequestBody PublicationRequestDTO publication);
+    public HttpStatus createNewPublication(PublicationRequestDTO publication);
 
     //US 0006
-    public List<Publication> listPublicationsByIdAndDate(@PathVariable Integer userId);
+    public List<Publication> listPublicationsByIdAndDate(Integer userId);
 
     //US 0007
-    public HttpStatus unfollowSeller(@PathVariable Integer userId, @PathVariable Integer sellerId);
+    public HttpStatus unfollowSeller(Integer userId, Integer sellerId);
 
+    //US 0008
+//    public List<CustomerDTO> listAllFollowersOrderedByName(Integer userId, String order);
 }

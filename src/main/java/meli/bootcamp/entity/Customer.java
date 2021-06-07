@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Customer {
+public class Customer implements Comparable<Customer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,4 +21,10 @@ public class Customer {
     )
     @JsonIgnoreProperties("followers")
     private List<Seller> follows;
+
+
+    @Override
+    public int compareTo(Customer o) {
+        return this.nome.compareTo(o.getNome());
+    }
 }

@@ -18,8 +18,7 @@ import meli.bootcamp.rest.SellerDTO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/challenge")
@@ -68,12 +67,9 @@ public class ChallengeControllerImpl implements ChallengeController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public List<CustomerDTO> listAllFollowers(@PathVariable Integer userId){
-
+    public List<CustomerDTO> listAllFollowers(@PathVariable Integer userId, @RequestParam(required = false) String order){
         List<CustomerDTO> customers = new ArrayList<>();
-
         Seller s1 = s_service.getSellerById(userId);
-
 
         for(Customer c1 : s1.getFollowers()){
             CustomerDTO dto = new CustomerDTO();
@@ -81,18 +77,32 @@ public class ChallengeControllerImpl implements ChallengeController {
             dto.setNome(c1.getNome());
             customers.add(dto);
         }
+
+        if(order != null && order.toLowerCase(Locale.ROOT).equals("asc")){
+            Collections.sort(customers);
+        } else if(order != null && order.toLowerCase(Locale.ROOT).equals("desc")){
+            Collections.sort(customers, Collections.reverseOrder());
+        }
+
         return customers;
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public List<SellerDTO> listAllSellers(@PathVariable Integer userId){
+    public List<SellerDTO> listAllSellers(@PathVariable Integer userId, @RequestParam(required = false) String order){
         List<SellerDTO> sellers = new ArrayList<>();
         Customer customer = c_service.getCustomerById(userId);
+
         for(Seller seller : customer.getFollows()){
             SellerDTO dto = new SellerDTO();
             dto.setId(seller.getId());
             dto.setNome(seller.getNome());
             sellers.add(dto);
+        }
+
+        if(order != null && order.toLowerCase(Locale.ROOT).equals("asc")){
+            Collections.sort(sellers);
+        } else if(order != null && order.toLowerCase(Locale.ROOT).equals("desc")){
+            Collections.sort(sellers, Collections.reverseOrder());
         }
         return sellers;
     }
@@ -100,7 +110,6 @@ public class ChallengeControllerImpl implements ChallengeController {
     @PostMapping("/products/newpost")
     public HttpStatus createNewPublication(PublicationRequestDTO publicationRequest) {
 
-        logger.warn("O valor recebido como seller_id é " + publicationRequest.getUserId());
         Publication publication = new Publication();
         Integer sellerId = publicationRequest.getUserId();
         Product product = new Product();
@@ -165,6 +174,4 @@ public class ChallengeControllerImpl implements ChallengeController {
 
         return HttpStatus.OK;
     }
-
-
 }
