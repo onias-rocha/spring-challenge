@@ -23,4 +23,9 @@ public class Seller {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="seller_id")
     private List<Publication> publications;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="seller_id")
+    private List<Product> products;
+
 }
+

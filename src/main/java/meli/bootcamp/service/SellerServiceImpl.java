@@ -37,8 +37,9 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller updateSeller(Integer id) {
-        return null;
+    public Seller updateSeller(Seller seller) {
+        repository.save(seller);
+        return seller;
     }
 
     @Override

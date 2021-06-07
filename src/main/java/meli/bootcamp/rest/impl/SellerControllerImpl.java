@@ -1,6 +1,7 @@
-package meli.bootcamp.rest;
+package meli.bootcamp.rest.impl;
 
 import meli.bootcamp.entity.Seller;
+import meli.bootcamp.rest.SellerController;
 import meli.bootcamp.service.SellerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
