@@ -12,7 +12,7 @@ public interface SellerService {
 
     public List<Seller> getAllSellers();
 
-    public Seller updateSeller (Integer id);
+    public Seller updateSeller (Seller seller);
 
     public void deleteSeller (Integer id);
 }

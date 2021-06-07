@@ -1,9 +1,9 @@
-package meli.bootcamp.rest;
+package meli.bootcamp.rest.dto;
 
 import lombok.Data;
 
 @Data
-public class CustomerDTO {
+public class SellerDTO {
     private Integer id;
     private String nome;
 }

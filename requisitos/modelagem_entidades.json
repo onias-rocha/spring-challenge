@@ -13,8 +13,12 @@
   "publication": {
     "id": 2,
     "dateOfPublication": "31/05/2021"
-  }
+  },
+
+  "publicationRequestDTO"
 }
+
+
 
 
 public class Seller{

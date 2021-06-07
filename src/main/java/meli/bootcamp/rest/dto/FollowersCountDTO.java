@@ -1,4 +1,4 @@
-package meli.bootcamp.rest;
+package meli.bootcamp.rest.dto;
 
 import lombok.Data;
 
