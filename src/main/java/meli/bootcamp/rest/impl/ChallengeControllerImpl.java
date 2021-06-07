@@ -1,5 +1,7 @@
 package meli.bootcamp.rest.impl;
 
+import meli.bootcamp.data.ProductRepository;
+import meli.bootcamp.data.PublicationRepository;
 import meli.bootcamp.entity.Customer;
 import meli.bootcamp.entity.Product;
 import meli.bootcamp.entity.Publication;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import meli.bootcamp.rest.ChallengeController;
+import meli.bootcamp.rest.SellerDTO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,13 +27,18 @@ public class ChallengeControllerImpl implements ChallengeController {
 
     CustomerService c_service;
     SellerService s_service;
+    ProductRepository productRepository;
+    PublicationRepository publicationRepository;
+
 
     Logger logger = LoggerFactory.getLogger(ChallengeControllerImpl.class);
 
 
-    public ChallengeControllerImpl(CustomerService c_service, SellerService s_service) {
+    public ChallengeControllerImpl(CustomerService c_service, SellerService s_service, ProductRepository productRepository, PublicationRepository publicationRepository) {
         this.c_service = c_service;
         this.s_service = s_service;
+        this.productRepository = productRepository;
+        this.publicationRepository = publicationRepository;
     }
 
     @PostMapping("/users/{idUser}/follow/{idToFollow}")
@@ -119,6 +127,26 @@ public class ChallengeControllerImpl implements ChallengeController {
         s_service.updateSeller(s1);
 
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/products/followed/{userId}/list")
+    public List<Publication> listPublicationsByIdAndDate(Integer userId) {
+        List<Publication> publications = new ArrayList<>();
+        List<Integer> followedSellers = new ArrayList<>();
+        Customer customer = c_service.getCustomerById(userId);
+        customer.getFollows().forEach(follows-> followedSellers.add(follows.getId()));
+        for(Integer id: followedSellers){
+            publicationRepository.findAll().forEach(publication -> {
+                if(publication.getSeller_id() == id && publication.getDate().isAfter(LocalDate.now().minusDays(14))){
+                    publications.add(publication);
+                }
+            });
+        }
+
+        for(Publication p : publications){
+            System.out.println(p.toString());
+        }
+        return publications;
     }
 
 

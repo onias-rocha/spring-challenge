@@ -1,5 +1,6 @@
 package meli.bootcamp.rest;
 
+import meli.bootcamp.entity.Publication;
 import meli.bootcamp.rest.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,5 +23,8 @@ public interface ChallengeController {
 
     //US 0005
     public HttpStatus createNewPublication(@RequestBody PublicationRequestDTO publication);
+
+    //US 0006
+    public List<Publication> listPublicationsByIdAndDate(@PathVariable Integer userId);
 
 }
