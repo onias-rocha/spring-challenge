@@ -149,5 +149,22 @@ public class ChallengeControllerImpl implements ChallengeController {
         return publications;
     }
 
+    @PostMapping("/users/{customerId}/unfollow/{sellerId}")
+    public HttpStatus unfollowSeller(@PathVariable Integer customerId, @PathVariable Integer sellerId) {
+        Customer customer = c_service.getCustomerById(customerId);
+        List<Seller> follows = customer.getFollows();
+        List<Seller> followsUpdated = new ArrayList<>();
+        follows.forEach(seller -> {
+            if(seller.getId() != sellerId){
+                followsUpdated.add(seller);
+            }
+        });
+
+        customer.setFollows(followsUpdated);
+        c_service.updateCustomer(customer);
+
+        return HttpStatus.OK;
+    }
+
 
 }

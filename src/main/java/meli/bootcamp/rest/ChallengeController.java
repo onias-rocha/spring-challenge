@@ -27,4 +27,7 @@ public interface ChallengeController {
     //US 0006
     public List<Publication> listPublicationsByIdAndDate(@PathVariable Integer userId);
 
+    //US 0007
+    public HttpStatus unfollowSeller(@PathVariable Integer userId, @PathVariable Integer sellerId);
+
 }
