@@ -30,4 +30,8 @@ public interface ChallengeController {
 
     //US 0010
     public HttpStatus createNewPromoPost(PromoPublicationRequestDTO promoPublication);
+
+    //US 0011
+    public PromoPostsCountDTO getCountOfPromoPostsBySeller(Integer userId);
+
 }

@@ -213,4 +213,24 @@ public class ChallengeControllerImpl implements ChallengeController {
 
         return HttpStatus.OK;
     }
+
+    @GetMapping("/products/{userId}/countPromo")
+    public PromoPostsCountDTO getCountOfPromoPostsBySeller(@PathVariable Integer userId) {
+        PromoPostsCountDTO dto = new PromoPostsCountDTO();
+        int count = 0;
+        List<Publication> publications = new ArrayList<>();
+        for(Publication p : publicationRepository.findAll()){
+            if (p.getSeller_id() == userId && p.getHasPromo() == true){
+                ++count;
+            }
+        }
+
+        dto.setPromoproducts_count(count);
+        Seller s1 = s_service.getSellerById(userId);
+        dto.setUserName(s1.getNome());
+        dto.setUserId(userId);
+
+
+        return dto;
+    }
 }
