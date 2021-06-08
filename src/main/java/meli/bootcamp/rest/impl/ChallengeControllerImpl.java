@@ -230,6 +230,23 @@ public class ChallengeControllerImpl implements ChallengeController {
         dto.setUserName(s1.getNome());
         dto.setUserId(userId);
 
+        return dto;
+    }
+
+    @GetMapping("/products/{userId}/list/")
+    public PromoPostsByUserDTO getPromoPostsByUserDTO(@PathVariable Integer userId) {
+        PromoPostsByUserDTO dto = new PromoPostsByUserDTO();
+        List<Publication> publications = new ArrayList<>();
+        publicationRepository.findAll().forEach(publication -> {
+            if(publication.getSeller_id() == userId && publication.getHasPromo() == true){
+                publications.add(publication);
+            }
+        });
+
+        Seller s1 = s_service.getSellerById(userId);
+        dto.setUserId(userId);
+        dto.setUserName(s1.getNome());
+        dto.setPosts(publications);
 
         return dto;
     }

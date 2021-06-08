@@ -34,4 +34,7 @@ public interface ChallengeController {
     //US 0011
     public PromoPostsCountDTO getCountOfPromoPostsBySeller(Integer userId);
 
+    public PromoPostsByUserDTO getPromoPostsByUserDTO(Integer userId);
+
+
 }
