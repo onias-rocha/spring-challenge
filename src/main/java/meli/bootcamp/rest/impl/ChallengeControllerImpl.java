@@ -29,9 +29,7 @@ public class ChallengeControllerImpl implements ChallengeController {
     ProductRepository productRepository;
     PublicationRepository publicationRepository;
 
-
     Logger logger = LoggerFactory.getLogger(ChallengeControllerImpl.class);
-
 
     public ChallengeControllerImpl(CustomerService c_service, SellerService s_service, ProductRepository productRepository, PublicationRepository publicationRepository) {
         this.c_service = c_service;
@@ -108,7 +106,7 @@ public class ChallengeControllerImpl implements ChallengeController {
     }
 
     @PostMapping("/products/newpost")
-    public HttpStatus createNewPublication(PublicationRequestDTO publicationRequest) {
+    public HttpStatus createNewPublication(@RequestBody PublicationRequestDTO publicationRequest) {
 
         Publication publication = new Publication();
         Integer sellerId = publicationRequest.getUserId();
@@ -139,7 +137,7 @@ public class ChallengeControllerImpl implements ChallengeController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public List<Publication> listPublicationsByIdAndDate(Integer userId) {
+    public List<Publication> listPublicationsByIdAndDate(@PathVariable Integer userId, @RequestParam(required = false) String order) {
         List<Publication> publications = new ArrayList<>();
         List<Integer> followedSellers = new ArrayList<>();
         Customer customer = c_service.getCustomerById(userId);
@@ -155,6 +153,14 @@ public class ChallengeControllerImpl implements ChallengeController {
         for(Publication p : publications){
             System.out.println(p.toString());
         }
+
+        if(order.toLowerCase(Locale.ROOT).equals("date_desc")){
+            Collections.sort(publications);
+        } else if(order.toLowerCase(Locale.ROOT).equals("date_asc")){
+            Collections.sort(publications, Collections.reverseOrder());
+        }
+
+
         return publications;
     }
 

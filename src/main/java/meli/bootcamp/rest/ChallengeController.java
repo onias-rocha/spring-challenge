@@ -23,7 +23,7 @@ public interface ChallengeController {
     public HttpStatus createNewPublication(PublicationRequestDTO publication);
 
     //US 0006
-    public List<Publication> listPublicationsByIdAndDate(Integer userId);
+    public List<Publication> listPublicationsByIdAndDate(Integer userId, String order);
 
     //US 0007
     public HttpStatus unfollowSeller(Integer userId, Integer sellerId);

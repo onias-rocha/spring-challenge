@@ -1,8 +1,6 @@
 package meli.bootcamp.rest.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
-import meli.bootcamp.entity.Type;
 
 import java.io.Serializable;
 
