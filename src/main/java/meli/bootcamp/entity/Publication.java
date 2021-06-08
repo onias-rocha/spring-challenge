@@ -20,6 +20,8 @@ public class Publication implements Comparable<Publication> {
     private Double price;
     @JsonIgnore
     private Integer seller_id;
+    private Boolean hasPromo;
+    private Double discount;
 
     @Override
     public int compareTo(Publication o) {

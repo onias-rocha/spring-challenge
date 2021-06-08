@@ -28,6 +28,6 @@ public interface ChallengeController {
     //US 0007
     public HttpStatus unfollowSeller(Integer userId, Integer sellerId);
 
-    //US 0008
-//    public List<CustomerDTO> listAllFollowersOrderedByName(Integer userId, String order);
+    //US 0010
+    public HttpStatus createNewPromoPost(PromoPublicationRequestDTO promoPublication);
 }

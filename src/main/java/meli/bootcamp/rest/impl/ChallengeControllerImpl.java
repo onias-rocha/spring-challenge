@@ -122,6 +122,8 @@ public class ChallengeControllerImpl implements ChallengeController {
         publication.setProduct(product);
         publication.setCategory(publicationRequest.getCategory());
         publication.setPrice(publicationRequest.getPrice());
+        publication.setHasPromo(false);
+        publication.setDiscount(0.0);
 
 
         Seller s1 = s_service.getSellerById(sellerId);
@@ -177,6 +179,37 @@ public class ChallengeControllerImpl implements ChallengeController {
 
         customer.setFollows(followsUpdated);
         c_service.updateCustomer(customer);
+
+        return HttpStatus.OK;
+    }
+
+    @PostMapping("/products/newpromopost")
+    public HttpStatus createNewPromoPost(@RequestBody PromoPublicationRequestDTO promoPublication) {
+        Publication publication = new Publication();
+        Integer sellerId = promoPublication.getUserId();
+        Product product = new Product();
+
+        product.setName(promoPublication.getDetail().getProductName());
+        product.setType(promoPublication.getDetail().getType());
+        product.setBrand(promoPublication.getDetail().getBrand());
+        product.setColor(promoPublication.getDetail().getColor());
+        product.setNotes(promoPublication.getDetail().getNotes());
+
+        publication.setDate(LocalDate.parse(promoPublication.getDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy") ));
+        publication.setProduct(product);
+        publication.setCategory(promoPublication.getCategory());
+        publication.setPrice(promoPublication.getPrice());
+        publication.setHasPromo(true);
+        publication.setDiscount(promoPublication.getDiscount());
+
+        Seller s1 = s_service.getSellerById(sellerId);
+        List<Publication> publications = s1.getPublications();
+        List<Product> products  = s1.getProducts();
+        products.add(product);
+        publications.add(publication);
+        s1.setPublications(publications);
+        s1.setProducts(products);
+        s_service.updateSeller(s1);
 
         return HttpStatus.OK;
     }

@@ -33,6 +33,8 @@ CREATE TABLE publication(
     date_of_publication DATE,
     category INTEGER,
     price DOUBLE,
+    has_promo BOOLEAN DEFAULT FALSE,
+    discount DOUBLE DEFAULT 0.0,
     product_id INTEGER,
     seller_id INTEGER,
     FOREIGN KEY (seller_id) REFERENCES seller(id),
